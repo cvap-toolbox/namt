@@ -1,0 +1,21 @@
+function totalSum = sumall( X )
+% function totalSum = sumall( X )
+% Sums all elements in a matrix.
+%
+% usage
+%     totalSum = sumall ( X )
+%
+% input
+%     X : M by N matrix.
+%
+% output
+%                  
+% description
+%     Sums all elements in a M by N matrix.
+%
+% author
+%     Martin Hjelm, martinhjelm@kth.se  
+
+  totalSum = sum( sum( X ) );
+
+end
