@@ -1,4 +1,4 @@
 namt
 ====
 
-Not Another Matlab Toolbox
+**Not Another Matlab Toolbox**
