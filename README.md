@@ -11,7 +11,7 @@ General toolbox library for Matlab. Useful helper files that Matlab is lacking.
 
 **cle** - Closes all open Matlab editor windows.
 
-**getDirFileList** - Given a directory name the function returns a cell array of the containing the file names in the directory. If an specific file extension is specified then it only returns the names of the files with those extensions.
+**getDirFileList** - Given a directory the function returns a cell array of the files in that directory. The function is recursive so it also finds the files in subdirectories. If an specific file extension is specified then it only returns the names of the files with those extensions.
 
 **myPlot3** - Given M by N data matrix, where either M = 3 or N = 3, it makes a 3D point plot.
 
