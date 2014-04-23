@@ -16,3 +16,5 @@ General toolbox library for Matlab. Useful helper files that Matlab is lacking.
 **myPlot3** - Given M by N data matrix, where either M = 3 or N = 3, it makes a 3D point plot.
 
 **sumall** - Sums all elements in a matrix.
+
+**tridiag** - Creates a tri-diagonal matrix given a main diagonal and a sup-diagonal and sub-diagonal vectors.

@@ -25,32 +25,54 @@ function fileList = getDirFileList ( dirName, varargin )
 %     Martin Hjelm, martinhjelm@kth.se  
 
 
-  % Get files from specified directory
-  if numel(varargin) > 0 
-    % If a file extension was specified tell dir to 
-    % only get those.
-    files = dir( [ dirName,'/*.', varargin{1} ] );
-  else 
-    files = dir( dirName );
-  end
+%   % Retrieve file names from the specified directory
+%   if numel(varargin) > 0 && ~isempty(varargin)
+%     % If a file extension was specified tell dir to 
+%     % only get those.
+%     files = dir( [ dirName,'/*.', varargin{1} ] )
+%   else 
+%     files = dir( dirName );
+%   end
+%   
+  
+  files = dir( dirName );
   
   % Retrieve only the file names from the struct array.
-  N_files = length(files);
-  fileList = cell(N_files,1);
+  N_dirItems = length(files);
+  fileList = cell(0);
   
-  for i_file = 1:N_files
-    if ~strcmpi(files(i_file).name,'.') &&...
-       ~strcmpi(files(i_file).name,'..') &&...
-       ~strncmpi(files(i_file).name,'.',1) &&... 
-       ~files(i_file).isdir
-      fileList{i_file} = files(i_file).name;
+  N_files = 1;
+  for i_item = 1:N_dirItems
+    if ~strcmpi(files(i_item).name,'.') &&...
+       ~strcmpi(files(i_item).name,'..') &&...
+       ~strncmpi(files(i_item).name,'.',1) &&... 
+       ~files(i_item).isdir
+      if numel(varargin) > 0
+        if ~isempty(strfind(files(i_item).name,['.',varargin{1}]))
+          fileList{N_files} = [dirName,'/',files(i_item).name];
+          N_files = N_files + 1;
+        end
+      else 
+        fileList{N_files} = [dirName,'/',files(i_item).name];
+        N_files = N_files + 1;
+      end
+    elseif ~strcmpi(files(i_item).name,'.') &&...
+           ~strcmpi(files(i_item).name,'..') &&...
+           ~strncmpi(files(i_item).name,'.',1) &&... 
+           files(i_item).isdir
+        if numel(varargin) > 0  
+          fileList = [fileList,getDirFileList([dirName,'/',files(i_item).name],varargin{1})];
+        else
+          fileList = [fileList,getDirFileList([dirName,'/',files(i_item).name])];
+        end
     end
   end
+
   
-  % Prune empty cells if any. 
-  for i_file = 1:N_files
-    if strcmp(fileList(i_file),'')
-      fileList(i_file) = [];
+%   % Prune empty cells if any. 
+  for i_item = 1:N_files-1
+    if strcmp(fileList(i_item),'')
+      fileList(i_item) = [];
     end
   end
    
